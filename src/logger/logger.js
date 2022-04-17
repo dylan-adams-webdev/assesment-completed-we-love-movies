@@ -1,15 +1,14 @@
-const pinoHttp = require('pino-http');
 const { nanoid } = require('nanoid');
+const pinoHttp = require('pino-http');
 
 const level = process.env.LOG_LEVEL || 'info';
+const prettyPrint = process.env.NODE_ENV === 'development';
 
-const nodeEnv = process.env.NODE_ENV || 'development';
-const prettyPrint = nodeEnv === 'development';
-
+// TODO output to db instead of stdout
 const logger = pinoHttp({
 	genReqId: (request) => request.headers['x-request-id'] || nanoid(),
 	level,
-	prettyPrint: true,
+	prettyPrint,
 });
 
 module.exports = logger;

@@ -1,12 +1,13 @@
 if (process.env.USER) require('dotenv').config();
 const express = require('express');
-const logger = require('./config/logger');
+const logger = require('./logger/logger');
 const cors = require('cors');
 const moviesRouter = require('./routes/movies/movies.router');
 const theatersRouter = require('./routes/theaters/theaters.router');
 const reviewsRouter = require('./routes/reviews/reviews.router');
 const notFound = require('./errors/notFound');
 const errorHandler = require('./errors/errorHandler');
+
 const app = express();
 
 app.use(logger);
