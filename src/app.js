@@ -1,6 +1,7 @@
 if (process.env.USER) require('dotenv').config();
 const express = require('express');
 const logger = require('./logger/logger');
+const expressPino = require('express-pino-logger');
 const cors = require('cors');
 const moviesRouter = require('./routes/movies/movies.router');
 const theatersRouter = require('./routes/theaters/theaters.router');
@@ -10,7 +11,9 @@ const errorHandler = require('./errors/errorHandler');
 
 const app = express();
 
-app.use(logger);
+const loggerMiddleware = expressPino({ logger });
+
+app.use(loggerMiddleware);
 app.use(cors());
 app.use(express.json());
 
